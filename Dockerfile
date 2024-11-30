@@ -1,9 +1,14 @@
-# Use an official Docker Compose image
+# Use the Docker Compose base image
 FROM docker/compose:latest
 
-# Copy all files into the container
+# Set working directory
 WORKDIR /app
+
+# Install bash (not included in the base image)
+RUN apk add --no-cache bash
+
+# Copy all files into the container
 COPY . .
 
-# Run docker-compose.yml
-CMD ["docker-compose", "up"]
+# Run the setup script
+CMD ["bash", "setup.sh"]
